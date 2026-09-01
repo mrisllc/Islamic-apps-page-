@@ -4,33 +4,78 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Solvian Articles</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Arial,sans-serif;background:#f5f5f5;color:#222}
+header{background:#2563eb;color:#fff;padding:16px}
+header h1{font-size:24px}
+.container{max-width:900px;margin:auto;padding:16px}
+.search{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;margin:16px 0}
+.card{background:#fff;border-radius:12px;padding:16px;margin-bottom:14px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.card h2{font-size:20px;margin-bottom:8px}
+.meta{font-size:13px;color:#666;margin-bottom:10px}
+.card p{margin-bottom:12px;line-height:1.5}
+.btn{display:inline-block;background:#2563eb;color:#fff;text-decoration:none;padding:10px 14px;border-radius:8px}
+.empty{text-align:center;color:#666;padding:30px}
+</style>
+
 </head>
 <body>
 
-<h1>Solvian Articles</h1>
-<p>All official Solvian articles</p>
+<header>
+  <h1>Solvian Articles</h1>
+  <p>Official Help & Guides</p>
+</header>
 
-<div id="list">Loading...</div>
+<div class="container">
+
+  <input
+    id="search"
+    class="search"
+    type="text"
+    placeholder="Search articles..."
+  >
+
+  <div id="articles"></div>
+
+</div>
 
 <script>
+let all=[];
+
+function render(list){
+ const box=document.getElementById("articles");
+ box.innerHTML="";
+ if(list.length===0){
+   box.innerHTML='<div class="empty">No articles found.</div>';
+   return;
+ }
+ list.forEach(a=>{
+   box.innerHTML+=`
+   <div class="card">
+      <h2>${a.title}</h2>
+      <div class="meta">${a.category} • ${a.date}</div>
+      <p>${a.description}</p>
+      <a class="btn" href="${a.url}">Read Article</a>
+   </div>`;
+ });
+}
+
 fetch("articles.json")
 .then(r=>r.json())
 .then(data=>{
-  const list=document.getElementById("list");
-  list.innerHTML="";
-  data.forEach(a=>{
-    list.innerHTML+=`
-      <div style="border:1px solid #ccc;padding:12px;margin:10px 0">
-        <h3>${a.title}</h3>
-        <p>${a.description}</p>
-        <small>${a.category} • ${a.date}</small><br><br>
-        <a href="${a.url}">Read Article →</a>
-      </div>
-    `;
-  });
-})
-.catch(()=>{
-  document.getElementById("list").innerHTML="No articles found.";
+  all=data;
+  render(all);
+});
+
+document.getElementById("search").addEventListener("input",e=>{
+ const q=e.target.value.toLowerCase();
+ render(all.filter(a=>
+   a.title.toLowerCase().includes(q) ||
+   a.description.toLowerCase().includes(q) ||
+   a.category.toLowerCase().includes(q)
+ ));
 });
 </script>
 
