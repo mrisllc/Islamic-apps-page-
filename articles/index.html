@@ -1,82 +1,144 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Solvian Articles</title>
+<title>Solvian Help Center</title>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Arial,sans-serif;background:#f5f5f5;color:#222}
-header{background:#2563eb;color:#fff;padding:16px}
-header h1{font-size:24px}
+body{font-family:Arial,sans-serif;background:#f5f7fb;color:#111827}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:#fff;border-bottom:1px solid #e5e7eb;position:sticky;top:0}
+.logo{font-size:20px;font-weight:bold;color:#2563eb}
+.lang{padding:8px;border-radius:8px;border:1px solid #d1d5db}
+.hero{background:#2563eb;color:#fff;padding:28px 16px}
+.hero h1{font-size:28px;margin-bottom:8px}
 .container{max-width:900px;margin:auto;padding:16px}
-.search{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;margin:16px 0}
+#search{width:100%;padding:13px;border:1px solid #d1d5db;border-radius:10px;margin:16px 0}
 .card{background:#fff;border-radius:12px;padding:16px;margin-bottom:14px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
-.card h2{font-size:20px;margin-bottom:8px}
-.meta{font-size:13px;color:#666;margin-bottom:10px}
-.card p{margin-bottom:12px;line-height:1.5}
+.card h3{margin-bottom:6px}
+.meta{font-size:12px;color:#6b7280;margin-bottom:10px}
 .btn{display:inline-block;background:#2563eb;color:#fff;text-decoration:none;padding:10px 14px;border-radius:8px}
-.empty{text-align:center;color:#666;padding:30px}
+footer{text-align:center;padding:24px;color:#6b7280}
 </style>
-
 </head>
+
 <body>
 
-<header>
-  <h1>Solvian Articles</h1>
-  <p>Official Help & Guides</p>
+<header class="topbar">
+  <div class="logo">Solvian</div>
+
+  <select id="lang" class="lang">
+    <option value="bn">বাংলা</option>
+    <option value="en">English</option>
+    <option value="ar">العربية</option>
+  </select>
 </header>
+
+<section class="hero">
+  <h1 id="title">সহায়তা কেন্দ্র</h1>
+  <p id="subtitle">সকল গাইড, FAQ ও অফিসিয়াল নিবন্ধ এক জায়গায়</p>
+</section>
 
 <div class="container">
 
-  <input
-    id="search"
-    class="search"
-    type="text"
-    placeholder="Search articles..."
-  >
+  <input id="search" type="text" placeholder="আর্টিকেল খুঁজুন...">
 
-  <div id="articles"></div>
+  <h3 id="latest">সর্বশেষ নিবন্ধ</h3>
+
+  <div id="list"></div>
 
 </div>
 
-<script>
-let all=[];
+<footer>
+  © 2026 Solvian • Privacy • Terms • Help Center
+</footer>
 
-function render(list){
- const box=document.getElementById("articles");
- box.innerHTML="";
- if(list.length===0){
-   box.innerHTML='<div class="empty">No articles found.</div>';
-   return;
- }
- list.forEach(a=>{
-   box.innerHTML+=`
-   <div class="card">
-      <h2>${a.title}</h2>
-      <div class="meta">${a.category} • ${a.date}</div>
-      <p>${a.description}</p>
-      <a class="btn" href="${a.url}">Read Article</a>
-   </div>`;
- });
+<script>
+const text={
+bn:{
+title:"সহায়তা কেন্দ্র",
+sub:"সকল গাইড, FAQ ও অফিসিয়াল নিবন্ধ এক জায়গায়",
+search:"আর্টিকেল খুঁজুন...",
+latest:"সর্বশেষ নিবন্ধ",
+read:"পড়ুন"
+},
+en:{
+title:"Help Center",
+sub:"All guides, FAQs and official articles in one place",
+search:"Search articles...",
+latest:"Latest Articles",
+read:"Read"
+},
+ar:{
+title:"مركز المساعدة",
+sub:"جميع الأدلة والأسئلة الشائعة والمقالات الرسمية في مكان واحد",
+search:"ابحث عن المقالات...",
+latest:"أحدث المقالات",
+read:"اقرأ"
+}
+};
+
+let articles=[];
+
+function applyLang(lang){
+localStorage.setItem("lang",lang);
+
+document.documentElement.lang=lang;
+
+document.getElementById("title").textContent=text[lang].title;
+document.getElementById("subtitle").textContent=text[lang].sub;
+document.getElementById("search").placeholder=text[lang].search;
+document.getElementById("latest").textContent=text[lang].latest;
+
+render();
+}
+
+function render(){
+const q=document.getElementById("search").value.toLowerCase();
+const lang=localStorage.getItem("lang")||"bn";
+
+const list=document.getElementById("list");
+list.innerHTML="";
+
+const filtered=articles.filter(a=>
+a.title.toLowerCase().includes(q)||
+a.description.toLowerCase().includes(q)||
+a.category.toLowerCase().includes(q)
+);
+
+if(filtered.length===0){
+list.innerHTML="<p>কোন আর্টিকেল পাওয়া যায়নি।</p>";
+return;
+}
+
+filtered.forEach(a=>{
+list.innerHTML+=`
+<div class="card">
+<h3>${a.title}</h3>
+<div class="meta">${a.category} • ${a.date}</div>
+<p>${a.description}</p>
+<a class="btn" href="${a.url}">${text[lang].read}</a>
+</div>`;
+});
 }
 
 fetch("articles.json")
 .then(r=>r.json())
 .then(data=>{
-  all=data;
-  render(all);
+articles=data;
+render();
 });
 
-document.getElementById("search").addEventListener("input",e=>{
- const q=e.target.value.toLowerCase();
- render(all.filter(a=>
-   a.title.toLowerCase().includes(q) ||
-   a.description.toLowerCase().includes(q) ||
-   a.category.toLowerCase().includes(q)
- ));
+document.getElementById("search").addEventListener("input",render);
+
+document.getElementById("lang").addEventListener("change",e=>{
+applyLang(e.target.value);
 });
+
+const saved=localStorage.getItem("lang")||"bn";
+document.getElementById("lang").value=saved;
+applyLang(saved);
 </script>
 
 </body>
