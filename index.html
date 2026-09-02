@@ -1,15 +1,1155 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Islamic apps</title>
-</head>
+    <title>Hisn Lifestyle Apps</title>
+    <meta name="description" content="নামাজ, কুরআন, তাসবীহ, দোয়া, হাদিস, যাকাত ক্যালকুলেটর, কিবলা কম্পাস সহ ৫০টিরও বেশি ইসলামিক ফিচার এক অ্যাপে">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 
+    <style>
+        :root {
+            --primary: #0b6e4f;
+            --primary-dark: #084c37;
+            --primary-light: #0f8a63;
+            --gold: #d4a017;
+            --gold-light: #f0c14b;
+            --bg: #f7f4ef;
+            --dark: #0a2f24;
+            --white: #ffffff;
+            --text: #1a1a1a;
+            --text-light: #555;
+            --shadow: 0 12px 30px rgba(11, 110, 79, 0.1);
+            --radius: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 47, 36, 0.97);
+            backdrop-filter: blur(12px);
+            padding: 14px 0;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            text-decoration: none;
+            font-size: 1.45rem;
+            font-weight: 700;
+        }
+
+        .logo i {
+            color: var(--gold);
+            font-size: 1.6rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 26px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .download-btn-nav {
+            background: var(--gold);
+            color: var(--dark);
+            padding: 10px 22px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .download-btn-nav:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+        }
+
+        .menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #0a2f24 0%, #0b6e4f 55%, #0f8a63 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 0 80px;
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(212,160,23,0.12) 0%, transparent 70%);
+            top: -80px;
+            right: -80px;
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 50px;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-text h1 {
+            font-size: 3.2rem;
+            font-weight: 700;
+            line-height: 1.25;
+            margin-bottom: 18px;
+            font-family: 'Amiri', serif;
+        }
+
+        .hero-text h1 span {
+            color: var(--gold);
+        }
+
+        .hero-text .badge {
+            display: inline-block;
+            background: rgba(212,160,23,0.2);
+            color: var(--gold-light);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 18px;
+            border: 1px solid rgba(212,160,23,0.3);
+        }
+
+        .hero-text p {
+            font-size: 1.15rem;
+            opacity: 0.92;
+            margin-bottom: 32px;
+            max-width: 500px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 26px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+
+        .btn-gold {
+            background: var(--gold);
+            color: var(--dark);
+        }
+
+        .btn-gold:hover {
+            background: var(--gold-light);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(212,160,23,0.35);
+        }
+
+        .btn-outline-white {
+            background: transparent;
+            border: 2px solid rgba(255,255,255,0.45);
+            color: white;
+        }
+
+        .btn-outline-white:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: white;
+        }
+
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+        .phone-mockup {
+            width: 260px;
+            height: 530px;
+            background: linear-gradient(160deg, #1a1a1a, #2d2d2d);
+            border-radius: 38px;
+            padding: 11px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+            border: 3px solid #444;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #0b6e4f, #0a2f24);
+            border-radius: 30px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding: 25px 18px;
+        }
+
+        .phone-screen .app-icon-big {
+            width: 85px;
+            height: 85px;
+            background: white;
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.6rem;
+            color: var(--primary);
+            margin-bottom: 18px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .phone-screen h3 {
+            font-size: 1.4rem;
+            margin-bottom: 6px;
+        }
+
+        .phone-screen p {
+            font-size: 0.88rem;
+            opacity: 0.85;
+        }
+
+        .floating-badge {
+            position: absolute;
+            background: white;
+            color: var(--primary);
+            padding: 9px 16px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.88rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .badge-1 {
+            top: 50px;
+            left: -25px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .badge-2 {
+            bottom: 90px;
+            right: -30px;
+            animation: float 3s ease-in-out infinite 1.5s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Features */
+        .features {
+            padding: 90px 0 70px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 12px;
+            font-family: 'Amiri', serif;
+        }
+
+        .section-header p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            max-width: 560px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 18px;
+        }
+
+        .feature-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 22px 18px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(11, 110, 79, 0.05);
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 18px 40px rgba(11, 110, 79, 0.15);
+            border-color: rgba(11, 110, 79, 0.15);
+        }
+
+        .feature-icon {
+            width: 54px;
+            height: 54px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: white;
+            margin: 0 auto 14px;
+            box-shadow: 0 6px 16px rgba(11, 110, 79, 0.22);
+        }
+
+        .feature-card h3 {
+            font-size: 1.05rem;
+            margin-bottom: 6px;
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .feature-card p {
+            color: var(--text-light);
+            font-size: 0.84rem;
+            line-height: 1.45;
+        }
+
+        /* Highlight */
+        .highlight {
+            background: linear-gradient(135deg, var(--dark), var(--primary));
+            padding: 70px 0;
+            color: white;
+        }
+
+        .highlight-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 45px;
+            align-items: center;
+        }
+
+        .highlight-text h2 {
+            font-size: 2.2rem;
+            margin-bottom: 16px;
+            font-family: 'Amiri', serif;
+        }
+
+        .highlight-text p {
+            opacity: 0.9;
+            margin-bottom: 24px;
+            font-size: 1.05rem;
+        }
+
+        .highlight-list {
+            list-style: none;
+        }
+
+        .highlight-list li {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+
+        .highlight-list i {
+            color: var(--gold);
+            font-size: 1.1rem;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .stat-box {
+            background: rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 24px 18px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .stat-box h3 {
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 4px;
+        }
+
+        .stat-box p {
+            opacity: 0.85;
+            font-size: 0.9rem;
+        }
+
+        /* CTA */
+        .cta {
+            padding: 90px 0;
+            text-align: center;
+            background: var(--bg);
+        }
+
+        .cta-box {
+            background: white;
+            border-radius: 28px;
+            padding: 55px 35px;
+            box-shadow: var(--shadow);
+            max-width: 780px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-box::before {
+            content: '☪';
+            position: absolute;
+            font-size: 180px;
+            opacity: 0.04;
+            right: -25px;
+            bottom: -45px;
+            color: var(--primary);
+        }
+
+        .cta-box h2 {
+            font-size: 2.15rem;
+            color: var(--dark);
+            margin-bottom: 14px;
+            font-family: 'Amiri', serif;
+        }
+
+        .cta-box p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(11, 110, 79, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 45px 0 25px;
+            text-align: center;
+        }
+
+        footer .logo {
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        footer p {
+            opacity: 0.75;
+            margin-bottom: 18px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 22px;
+            margin-bottom: 22px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+
+        .copyright {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 18px;
+            font-size: 0.88rem;
+            opacity: 0.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .hero-text p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .hero-buttons {
+                justify-content: center;
+            }
+            .hero-visual {
+                order: -1;
+            }
+            .phone-mockup {
+                width: 230px;
+                height: 470px;
+            }
+            .highlight-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .highlight-list li {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links, .download-btn-nav {
+                display: none;
+            }
+            .menu-btn {
+                display: block;
+            }
+            .hero-text h1 {
+                font-size: 2.3rem;
+            }
+            .section-header h2 {
+                font-size: 1.9rem;
+            }
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            .feature-card {
+                padding: 16px 12px;
+            }
+            .feature-icon {
+                width: 46px;
+                height: 46px;
+                font-size: 1.2rem;
+            }
+            .feature-card h3 {
+                font-size: 0.95rem;
+            }
+            .feature-card p {
+                font-size: 0.78rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .features-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
 <body>
 
-    <h1>Islamic</h1>
-    <p>Islamic Pages</p>
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="#" class="logo">
+                    <i class="fas fa-moon"></i>
+                    <span> Hisn Lifestyle </span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#features"> ফিচার</a></li>
+                    <li><a href="#highlight">কেন এই অ্যাপ</a></li>
+                    <li><a href="#download">download</a></li>
+                </ul>
+                <a href="#download" class="download-btn-nav">download</a>
+                <button class="menu-btn" id="menuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="badge">Islamic ফিচার সম্পন্ন</div>
+                    <h1>আপনার সম্পূর্ণ<br><span>ইসলামিক সঙ্গী</span></h1>
+                    <p>নামাজ, কুরআন, তাসবীহ, দোয়া, হাদিস, যাকাত ক্যালকুলেটর, কিবলা কম্পাস সহ ৫০টিরও বেশি ফিচার এক অ্যাপে। আপনার ইবাদতকে আরও সহজ ও সুন্দর করুন।</p>
+                    <div class="hero-buttons">
+                        <a href="#download" class="btn btn-gold">
+                            <i class="fab fa-google-play"></i> Google Play
+                        </a>
+                        <a href="#features" class="btn btn-outline-white">
+                            <i class="fas fa-list"></i> সব ফিচার দেখুন
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-visual">
+                    <div class="phone-mockup">
+                        <div class="phone-screen">
+                            <div class="app-icon-big">
+                                <i class="fas fa-moon"></i>
+                            </div>
+                            <h3>Hisn Lifestyle</h3>
+                            <p>৫০+ ইসলামিক ফিচার</p>
+                        </div>
+                    </div>
+                    <div class="floating-badge badge-1">
+                        <i class="fas fa-star"></i> ৪.৯ রেটিং
+                    </div>
+                    <div class="floating-badge badge-2">
+                        <i class="fas fa-download"></i> সম্পূর্ণ ফ্রি
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 50 Features -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>অ্যাপের সকল ফিচার</h2>
+                <p>এক অ্যাপেই পেয়ে যান আপনার প্রয়োজনীয় সকল ইসলামিক সুবিধা</p>
+            </div>
+
+            <div class="features-grid">
+
+                <!-- 1 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-home"></i></div>
+                    <h3>হোম </h3>
+                    <p>নামাজের সময়, আজকের দোয়া ও গুরুত্বপূর্ণ তথ্য এক নজরে</p>
+                </div>
+
+                <!-- 2 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-mosque"></i></div>
+                    <h3>নামাজের সময়সূচি</h3>
+                    <p>সঠিক নামাজের সময় আপনার লোকেশন অনুযায়ী</p>
+                </div>
+
+                <!-- 3 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-bell"></i></div>
+                    <h3>আযান অ্যালার্ট</h3>
+                    <p>প্রতি ওয়াক্তে সুন্দর আযান নোটিফিকেশন</p>
+                </div>
+
+                <!-- 4 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-compass"></i></div>
+                    <h3>কিবলা কম্পাস</h3>
+                    <p>যেকোনো স্থান থেকে সঠিক কিবলার দিক</p>
+                </div>
+
+                <!-- 5 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-book-quran"></i></div>
+                    <h3>কুরআন মাজিদ</h3>
+                    <p>সম্পূর্ণ কুরআন বাংলা ইংরেজি অনুবাদ বাংলা উচ্চারণ সহ</p>
+                </div>
+
+                <!-- 6 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-headphones"></i></div>
+                    <h3>অডিও তিলাওয়াত</h3>
+                    <p>বিশ্বের সেরা ক্বারীদের তিলাওয়াত অড়িও এবং ভিডিও </p>
+                </div>
+
+                <!-- 7 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-book-open"></i></div>
+                    <h3>তাফসীর</h3>
+                    <p>সহজ বাংলা তাফসীরসহ কুরআন বুঝুন</p>
+                </div>
+
+                <!-- 8 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-circle-notch"></i></div>
+                    <h3>তাসবীহ </h3>
+                    <p>ডিজিটাল তাসবীহ দিয়ে যিকির গণনা</p>
+                </div>
+
+                <!-- 9 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-hands-praying"></i></div>
+                    <h3>দোয়া </h3>
+                    <p>দৈনন্দিন ও বিশেষ দোয়ার বিশাল সংগ্রহ</p>
+                </div>
+
+                <!-- 10 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-sun"></i></div>
+                    <h3>সকাল-সন্ধ্যার যিকির</h3>
+                    <p>সকাল ও সন্ধ্যার মাসনূন যিকিরসমূহ</p>
+                </div>
+
+                <!-- 11 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-certificate"></i></div>
+                    <h3> কালেমা</h3>
+                    <p>অর্থ ও উচ্চারণসহ ছয় কালেমা</p>
+                </div>
+
+                <!-- 12 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-book"></i></div>
+                    <h3> আল হাদিস </h3>
+                    <p>সহীহ হাদিস বাংলা উচ্চারণ অনুবাদসহ</p>
+                </div>
+
+                <!-- 13 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-kaaba"></i></div>
+                    <h3>হজ্জ </h3>
+                    <p>হজ্জ ও উমরাহ সম্পর্কে বিস্তারিত আলোচনা ধাপে ধাপে গাইড</p>
+                </div>
+
+                <!-- 14 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-plane"></i></div>
+                    <h3>উমরাহ </h3>
+                    <p>উমরাহর নিয়মকানুন ও উমরাহ সম্পর্কে বিস্তারিত গাইডলাইন</p>
+                </div>
+
+                <!-- 15 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-hand-holding-heart"></i></div>
+                    <h3>যাকাত </h3>
+                    <p>যাকাতের বিস্তারিত নিয়ম ও তথ্য</p>
+                </div>
+
+                <!-- 16 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-calculator"></i></div>
+                    <h3>যাকাত ক্যালকুলেটর</h3>
+                    <p>সঠিক যাকাতের পরিমাণ হিসাব করুন</p>
+                </div>
+
+                <!-- 17 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-star-and-crescent"></i></div>
+                    <h3>আল্লাহর ৯৯ নাম</h3>
+                    <p>আসমাউল হুসনা অর্থসহ</p>
+                </div>
+
+                <!-- 18 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-calendar-alt"></i></div>
+                    <h3>ইসলামী দিবস</h3>
+                    <p>গুরুত্বপূর্ণ ইসলামী দিবস ও উপলক্ষ</p>
+                </div>
+
+                <!-- 19 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-calendar"></i></div>
+                    <h3>হিজরি ক্যালেন্ডার</h3>
+                    <p>সম্পূর্ণ হিজরি তারিখ ও মাস</p>
+                </div>
+
+                <!-- 20 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-moon"></i></div>
+                    <h3>রমজান ক্যালেন্ডার</h3>
+                    <p>সেহরি, ইফতার ও তারাবির সময়সূচি</p>
+                </div>
+
+                <!-- 21 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-utensils"></i></div>
+                    <h3>সেহরি-ইফতার টাইম</h3>
+                    <p>আপনার এলাকার সঠিক সময়সূচি</p>
+                </div>
+
+                <!-- 22 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-pray"></i></div>
+                    <h3>নামাজের নিয়মাবলী</h3>
+                    <p>সহীহ নিয়মে নামাজ শিক্ষা</p>
+                </div>
+
+                <!-- 23 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-hand-sparkles"></i></div>
+                    <h3>ওযুর নিয়ম</h3>
+                    <p>সঠিকভাবে ওযু করার পদ্ধতি</p>
+                </div>
+
+                <!-- 24 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-shower"></i></div>
+                    <h3>গোসলের নিয়ম</h3>
+                    <p>ফরজ গোসলের সঠিক পদ্ধতি</p>
+                </div>
+
+                <!-- 25 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-person-praying"></i></div>
+                    <h3>জানাজার নামাজ</h3>
+                    <p>জানাজা নামাজের নিয়ম ও দোয়া</p>
+                </div>
+
+                <!-- 26 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-monument"></i></div>
+                    <h3>কবর জিয়ারত</h3>
+                    <p>কবর জিয়ারতের আদব ও দোয়া</p>
+                </div>
+
+                <!-- 27 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-book-reader"></i></div>
+                    <h3>সাহাবিদের সংক্ষিপ্ত ইতিহাস  </h3>
+                    <p>সাহাবিদের সংক্ষিপ্ত ইতিহাস জীবনী</p>
+                </div>
+
+                <!-- 28 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-user-tie"></i></div>
+                    <h3>নবী রাসুলদের সংক্ষিপ্ত ইতিহাস জীবনী</h3>
+                    <p> নবী ও রাসূলদের সংক্ষিপ্ত জীবনী </p>
+                </div>
+
+                <!-- 29 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-users"></i></div>
+                    <h3>ঈদুল আজহা</h3>
+                    <p>ঈদুল আজহার সম্পর্কে বিস্তারিত তথ্য</p>
+                </div>
+
+                <!-- 30 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-question-circle"></i></div>
+                    <h3>ইসলামিক কুইজ</h3>
+                    <p>জ্ঞান বাড়ানোর মজার কুইজ</p>
+                </div>
+
+                <!-- 31 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-language"></i></div>
+                    <h3>আরবি শেখা</h3>
+                    <p>সহজে আরবি বর্ণ ও শব্দ শিখুন</p>
+                </div>
+
+                <!-- 32 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-brain"></i></div>
+                    <h3>হিফজ ট্র্যাকার</h3>
+                    <p>কুরআন মুখস্থের অগ্রগতি ট্র্যাক করুন</p>
+                </div>
+
+                <!-- 33 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-volume-up"></i></div>
+                    <h3>দোয়ার অডিও</h3>
+                    <p>সঠিক উচ্চারণে দোয়া শুনুন</p>
+                </div>
+
+                <!-- 34 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-broadcast-tower"></i></div>
+                    <h3>আযানের অডিও</h3>
+                    <p>বিভিন্ন স্টাইলের সুন্দর আযান</p>
+                </div>
+
+                <!-- 35 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <h3>নিকটবর্তী মসজিদ</h3>
+                    <p>আশেপাশের মসজিদ খুঁজে বের করুন</p>
+                </div>
+
+                <!-- 36 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-donate"></i></div>
+                    <h3>সদকা ট্র্যাকার</h3>
+                    <p>আপনার দান-সদকার হিসাব রাখুন</p>
+                </div>
+
+                <!-- 37 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-cloud-moon"></i></div>
+                    <h3>রোজার নিয়ম</h3>
+                    <p>সিয়াম সাধনার সম্পূর্ণ নিয়মাবলী</p>
+                </div>
+
+                <!-- 38 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-sheep"></i></div>
+                    <h3>কুরবানির নিয়ম</h3>
+                    <p>কুরবানির সকল মাসআলা ও নিয়ম</p>
+                </div>
+
+                <!-- 39 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-heart"></i></div>
+                    <h3>ঈদুল ফিতর</h3>
+                    <p>ঈদুল ফিতর আদব ও নিয়ম</p>
+                </div>
+
+                <!-- 40 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-baby"></i></div>
+                    <h3>ইসলামিক নাম</h3>
+                    <p>সুন্দর ইসলামিক নাম ও অর্থ</p>
+                </div>
+
+                <!-- 41 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-cloud"></i></div>
+                    <h3>প্রয়োজন সূরা</h3>
+                    <p>নামাজের জন্য প্রয়োজনীয় সূরা 11 টি </p>
+                </div>
+
+                <!-- 42 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-book-medical"></i></div>
+                    <h3> নামাজ কায়েম</h3>
+                    <p>নামাজের বিস্তারিত আলোচনা </p>
+                </div>
+
+                <!-- 43 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-microphone"></i></div>
+                    <h3>বায়ান ও লেকচার</h3>
+                    <p>উলামাদের নির্বাচিত বায়ান শুনুন</p>
+                </div>
+
+                <!-- 44 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-check-double"></i></div>
+                    <h3>নামাজ ট্র্যাকার</h3>
+                    <p>দৈনিক নামাজ আদায়ের হিসাব রাখুন</p>
+                </div>
+
+                <!-- 45 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-search"></i></div>
+                    <h3>কুরআন সার্চ</h3>
+                    <p>যেকোনো আয়াত বা শব্দ খুঁজে বের করুন</p>
+                </div>
+
+                <!-- 46 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-bookmark"></i></div>
+                    <h3>বুকমার্ক ও নোট</h3>
+                    <p>প্রিয় আয়াত ও হাদিস সেভ করে রাখুন</p>
+                </div>
+
+                <!-- 47 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-moon"></i></div>
+                    <h3>ডার্ক মোড</h3>
+                    <p>চোখের আরামের জন্য ডার্ক থিম</p>
+                </div>
+
+                <!-- 48 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-globe"></i></div>
+                    <h3>মাল্টি ল্যাঙ্গুয়েজ</h3>
+                    <p>বাংলাসহ একাধিক ভাষা সাপোর্ট</p>
+                </div>
+
+                <!-- 49 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-wifi"></i></div>
+                    <h3>অফলাইন মোড</h3>
+                    <p>ইন্টারনেট ছাড়াই ব্যবহার করুন</p>
+                </div>
+
+                <!-- 50 -->
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-cog"></i></div>
+                    <h3>নোটিফিকেশন সেটিংস</h3>
+                    <p>আযান ও রিমাইন্ডার কাস্টমাইজ করুন</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Highlight -->
+    <section class="highlight" id="highlight">
+        <div class="container">
+            <div class="highlight-content">
+                <div class="highlight-text">
+                    <h2>ব্যবহার করে দেখতে ডাউনলোড করুন</h2>
+                    <p>এক অ্যাপেই পেয়ে যান আপনার দৈনন্দিন ইবাদতের সকল প্রয়োজনীয় টুলস। সহজ, সুন্দর এবং সম্পূর্ণ ফ্রি।</p>
+                    <ul class="highlight-list">
+                        <li><i class="fas fa-check-circle"></i>  ইসলামিক ফিচার সমৃদ্ধ অ্যাপ</li>
+                        <li><i class="fas fa-check-circle"></i> সম্পূর্ণ বহু ভাষা সমৃদ্ধ ইন্টারফেস</li>
+                        <li><i class="fas fa-check-circle"></i> অফলাইন অনলাইন সাপোর্ট</li>
+                        <li><i class="fas fa-check-circle"></i> সহজ ও সুন্দর ডিজাইন</li>
+                        <li><i class="fas fa-check-circle"></i> নিয়মিত প্রয়োজনে আপডেট</li>
+                        <li><i class="fas fa-check-circle"></i> অভিযোগ করলে তাৎক্ষণিক প্রতিক্রিয়া ব্যক্ত করতে পারেন</li>
+                    </ul>
+                </div>
+                <div class="stats">
+                    <div class="stat-box">
+                        <h3>ইসলামিক ফিচার সমৃদ্ধ</h3>
+                        <p> মূল ফিচার </p>
+                    </div>
+                    <div class="stat-box">
+                        <h3>১০০%</h3>
+                        <p>ফ্রি ব্যবহার</p>
+                    </div>
+                    <div class="stat-box">
+                        <h3>৪.৯</h3>
+                        <p>ইউজার রেটিং</p>
+                    </div>
+                    <div class="stat-box">
+                        <h3>তাৎক্ষণিকভাবে</h3>
+                        <p>সাপোর্ট</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta" id="download">
+        <div class="container">
+            <div class="cta-box">
+                <h2>এখনই ডাউনলোড করুন</h2>
+                <p> ইসলামিক ফিচার সমৃদ্ধ অ্যাপ নিয়ে আপনার ইবাদতকে আরও সহজ ও সুন্দর করতে আজই ইনস্টল করুন। সম্পূর্ণ ফ্রি!</p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn btn-primary">
+                        <i class="fab fa-google-play"></i> Google Play থেকে ডাউনলোড
+                    </a>
+                    <a href="#" class="btn btn-gold">
+                        <i class="fab fa-apple"></i> APK download 
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <a href="#" class="logo">
+                <i class="fas fa-moon"></i>
+                <span>Hisn Lifestyle</span>
+            </a>
+            <p>আপনার সম্পূর্ণ ইসলামিক সঙ্গী বহু ফিচার সমৃদ্ধ </p>
+            <div class="footer-links">
+                <a href="#features">প্রয়োজনীয় ফিচার</a>
+                <a href="#highlight">কেন এই অ্যাপ</a>
+                <a href="#download">ডাউনলোড</a>
+                <a href="#">প্রাইভেসি পলিসি</a>
+            </div>
+            <div class="copyright">
+                © ২০২৬ Hisn Lifestyle।By MRIS Technologies Co limited সর্বস্বত্ব সংরক্ষিত।
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 40) {
+                header.style.boxShadow = '0 5px 25px rgba(0,0,0,0.2)';
+            } else {
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>
