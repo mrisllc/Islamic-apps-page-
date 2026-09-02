@@ -1,19 +1,722 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>সচরাচর জিজ্ঞাসা (FAQ) |Hisn Lifestyle</title>
+    <meta name="description" content=" অ্যাপ সম্পর্কে সচরাচর জিজ্ঞাসিত প্রশ্ন ও উত্তর">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 
-    <title>FAQ — Solvian</title>
+    <style>
+        :root {
+            --primary: #0b6e4f;
+            --primary-dark: #084c37;
+            --primary-light: #0f8a63;
+            --gold: #d4a017;
+            --gold-light: #f0c14b;
+            --bg: #f4f1eb;
+            --dark: #0a2f24;
+            --white: #ffffff;
+            --text: #1a1a1a;
+            --text-light: #555;
+            --shadow: 0 10px 28px rgba(11, 110, 79, 0.1);
+            --radius: 14px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.65;
+            overflow-x: hidden;
+        }
+
+        .container { max-width: 920px; margin: 0 auto; padding: 0 18px; }
+
+        /* Header */
+        header {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background: rgba(10, 47, 36, 0.97);
+            backdrop-filter: blur(12px);
+            padding: 13px 0;
+        }
+
+        .nav {
+            display: flex; justify-content: space-between; align-items: center;
+            max-width: 1200px; margin: 0 auto; padding: 0 20px;
+        }
+
+        .logo {
+            display: flex; align-items: center; gap: 10px;
+            color: white; text-decoration: none; font-size: 1.4rem; font-weight: 700;
+        }
+        .logo i { color: var(--gold); font-size: 1.55rem; }
+
+        .nav-links { display: flex; gap: 24px; list-style: none; }
+        .nav-links a {
+            color: rgba(255,255,255,0.9); text-decoration: none;
+            font-weight: 500; transition: color 0.3s;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+
+        .download-btn-nav {
+            background: var(--gold); color: var(--dark);
+            padding: 9px 20px; border-radius: 50px; font-weight: 600;
+            text-decoration: none; transition: all 0.3s;
+        }
+        .download-btn-nav:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+        .menu-btn {
+            display: none; background: none; border: none;
+            color: white; font-size: 1.45rem; cursor: pointer;
+        }
+
+        /* Hero */
+        .page-hero {
+            background: linear-gradient(135deg, #0a2f24 0%, #0b6e4f 60%, #0f8a63 100%);
+            padding: 130px 0 60px; text-align: center; color: white; position: relative; overflow: hidden;
+        }
+        .page-hero::before {
+            content: ''; position: absolute; width: 380px; height: 380px;
+            background: radial-gradient(circle, rgba(212,160,23,0.12) 0%, transparent 70%);
+            top: -90px; right: -40px; border-radius: 50%;
+        }
+        .page-hero h1 {
+            font-size: 2.6rem; font-family: 'Amiri', serif;
+            margin-bottom: 12px; position: relative; z-index: 2;
+        }
+        .page-hero p {
+            font-size: 1.1rem; opacity: 0.9; max-width: 520px;
+            margin: 0 auto; position: relative; z-index: 2;
+        }
+        .faq-count {
+            display: inline-block; margin-top: 16px;
+            background: rgba(212,160,23,0.2); color: var(--gold-light);
+            padding: 6px 18px; border-radius: 50px; font-size: 0.92rem;
+            font-weight: 600; border: 1px solid rgba(212,160,23,0.3);
+            position: relative; z-index: 2;
+        }
+
+        /* FAQ */
+        .faq-section { padding: 55px 0 80px; }
+
+        .faq-category {
+            margin: 38px 0 14px; font-size: 1.18rem; color: var(--primary);
+            font-weight: 600; display: flex; align-items: center; gap: 10px;
+        }
+        .faq-category:first-of-type { margin-top: 0; }
+        .faq-category i { font-size: 1.05rem; }
+
+        .faq-list { display: flex; flex-direction: column; gap: 11px; }
+
+        .faq-item {
+            background: var(--white); border-radius: var(--radius);
+            box-shadow: var(--shadow); overflow: hidden;
+            border: 1px solid rgba(11, 110, 79, 0.06); transition: all 0.3s;
+        }
+        .faq-item:hover { box-shadow: 0 14px 36px rgba(11, 110, 79, 0.13); }
+
+        .faq-question {
+            width: 100%; background: none; border: none;
+            padding: 16px 18px; display: flex; justify-content: space-between;
+            align-items: center; cursor: pointer; text-align: left;
+            font-family: 'Hind Siliguri', sans-serif; font-size: 1rem;
+            font-weight: 600; color: var(--dark); gap: 14px; transition: background 0.25s;
+        }
+        .faq-question:hover { background: #f8faf9; }
+        .faq-question i {
+            color: var(--primary); font-size: 0.95rem;
+            transition: transform 0.3s; flex-shrink: 0;
+        }
+        .faq-item.active .faq-question i { transform: rotate(180deg); }
+
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+        .faq-item.active .faq-answer { max-height: 500px; }
+
+        .faq-answer-content {
+            padding: 0 18px 16px; color: var(--text-light);
+            font-size: 0.94rem; line-height: 1.65;
+            border-top: 1px solid #f0f0f0; padding-top: 12px;
+        }
+        .faq-answer-content a { color: var(--primary); font-weight: 500; text-decoration: none; }
+        .faq-answer-content a:hover { text-decoration: underline; }
+
+        /* Contact */
+        .contact-box {
+            background: linear-gradient(135deg, var(--dark), var(--primary));
+            border-radius: 18px; padding: 36px 28px; text-align: center;
+            color: white; margin-top: 50px;
+        }
+        .contact-box h3 { font-size: 1.5rem; margin-bottom: 10px; font-family: 'Amiri', serif; }
+        .contact-box p { opacity: 0.9; margin-bottom: 22px; font-size: 1.02rem; }
+        .contact-box .btn {
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 13px 26px; border-radius: 12px; font-weight: 600;
+            font-size: 1rem; text-decoration: none; background: var(--gold);
+            color: var(--dark); transition: all 0.3s; font-family: 'Hind Siliguri', sans-serif;
+        }
+        .contact-box .btn:hover {
+            background: var(--gold-light); transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(212,160,23,0.35);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark); color: white;
+            padding: 40px 0 22px; text-align: center;
+        }
+        footer .logo { justify-content: center; margin-bottom: 14px; }
+        footer p { opacity: 0.75; margin-bottom: 16px; }
+        .footer-links {
+            display: flex; justify-content: center; gap: 20px;
+            margin-bottom: 20px; flex-wrap: wrap;
+        }
+        .footer-links a {
+            color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.3s;
+        }
+        .footer-links a:hover { color: var(--gold); }
+        .copyright {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 16px; font-size: 0.86rem; opacity: 0.6;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links, .download-btn-nav { display: none; }
+            .menu-btn { display: block; }
+            .page-hero h1 { font-size: 2rem; }
+            .faq-question { font-size: 0.95rem; padding: 14px 14px; }
+            .faq-answer-content { padding: 0 14px 14px; padding-top: 10px; font-size: 0.9rem; }
+        }
+    </style>
 </head>
-
 <body>
 
-    <h1>Frequently Asked Questions</h1>
+<header>
+    <nav class="nav">
+        <a href="index.html" class="logo">
+            <i class="fas fa-moon"></i>
+            <span>Hisn Lifestyle</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">হোম</a></li>
+            <li><a href="index.html#phone-features">ফিচার</a></li>
+            <li><a href="faq.html" class="active">FAQ</a></li>
+            <li><a href="index.html#download">ডাউনলোড</a></li>
+        </ul>
+        <a href="index.html#download" class="download-btn-nav">ডাউনলোড করুন</a>
+        <button class="menu-btn"><i class="fas fa-bars"></i></button>
+    </nav>
+</header>
 
-    <p>
-        This is the official FAQ page for Solvian.
-    </p>
+<section class="page-hero">
+    <div class="container">
+        <h1>সচরাচর জিজ্ঞাসা</h1>
+        <p> অ্যাপ সম্পর্কে আপনার সব প্রশ্নের উত্তর এক জায়গায়</p>
+        <div class="faq-count"> প্রশ্ন ও উত্তর</div>
+    </div>
+</section>
+
+<section class="faq-section">
+<div class="container">
+
+<!-- ১. অ্যাপ সম্পর্কে (1-12) -->
+<div class="faq-category"><i class="fas fa-mobile-alt"></i> অ্যাপ সম্পর্কে</div>
+<div class="faq-list">
+    <div class="faq-item active">
+        <button class="faq-question">Hisn lifestyle অ্যাপ কী? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content"> অ্যাপসটি একটি সম্পূর্ণ ইসলামিক মোবাইল অ্যাপ্লিকেশন। এতে নামাজ, কুরআন, তাসবীহ, দোয়া, হাদিস, যাকাত ক্যালকুলেটর, কিবলা কম্পাসসহ সমৃদ্ধ বেশি ফিচার রয়েছে।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">অ্যাপটি কি সম্পূর্ণ ফ্রি? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ, অ্যাপ সম্পূর্ণ বিনামূল্যে ব্যবহার করা যায়। কোনো সাবস্ক্রিপশন বা চার্জ নেই।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">অ্যাপটি কোন প্ল্যাটফর্মে পাওয়া যায়? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">বর্তমানে Google Play Store-এ পাওয়া যায়। iOS ভার্সন শীঘ্রই আসছে।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">অ্যাপটি কি অফলাইনে কাজ করে? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। কুরআন, দোয়া, হাদিস, তাসবীহ, কালেমাসহ বেশিরভাগ ফিচার অফলাইনে কাজ করে।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">অ্যাপের পারফরম্যান্স কেমন? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content"> আমারা যতটুকু সম্ভব চেষ্টা করছি অ্যাপ টি যেন সুপার ফাস্ট বিদ্যুৎ গতিতে চলে। ।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">অ্যাপটি কোন ভাষা সাপোর্ট করে? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">বর্তমানে সম্পূর্ণ বাংলা ইংরেজি আরবি সাপোর্ট করতে পারে। ভবিষ্যতে ১৯৫ টির ও বেশি ভাষা যোগ করা হবে ধাপে ধাপে ইনশাআল্লাহ।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">অ্যাপটি কি নিয়মিত আপডেট হয়? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। নতুন ফিচার, বাগ ফিক্স ও কন্টেন্ট নিয়মিত আপডেট করা হয়।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">অ্যাপটি কার জন্য উপযোগী? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">সব বয়সের মুসলিম ভাই-বোনদের জন্য। বিশেষ করে যারা দৈনন্দিন ইবাদত সহজে পালন করতে চান।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">অ্যাপে কতগুলো ফিচার আছে? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">৫০টিরও বেশি ফিচার রয়েছে — নামাজ, কুরআন, হাদিস, দোয়া, যাকাত, হজ্জ, কিবলা কম্পাস সহ আরও অনেক কিছু।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">অ্যাপটি কি বিজ্ঞাপনমুক্ত? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">আমরা ব্যবহারকারীর অভিজ্ঞতাকে গুরুত্ব দিই। বিজ্ঞাপন থাকলেও তা ইবাদতে বিঘ্ন ঘটায় না।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">অ্যাপ ডেভেলপার কে? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">অ্যাপ একটি ইসলামিক সফটওয়্যার প্রজেক্ট। আমাদের লক্ষ্য মুসলিমদের ইবাদত সহজ করা।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">অ্যাপটি কি ওপেন সোর্স? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">বর্তমানে অ্যাপটি ওপেন সোর্স নয়। তবে ভবিষ্যতে কিছু অংশ ওপেন করার পরিকল্পনা থাকতে পারে।</div></div>
+    </div>
+</div>
+
+<!-- ২. ডাউনলোড ও ইনস্টলেশন (13-20) -->
+<div class="faq-category"><i class="fas fa-download"></i> ডাউনলোড ও ইনস্টলেশন</div>
+<div class="faq-list">
+    <div class="faq-item">
+        <button class="faq-question">অ্যাপ কিভাবে ডাউনলোড করব? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">Google Play Store-এ গিয়ে “Hisn lifestyle” সার্চ করুন অথবা আমাদের অফিশিয়াল ওয়েবসাইট থেকে ডাউনলোড করুন।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">ইনস্টল করতে সমস্যা হচ্ছে কি করব? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">স্টোরেজ খালি রাখুন, ইন্টারনেট ভালো রাখুন, অ্যাপ আপডেট করুন এবং ক্যাশ ক্লিয়ার করে আবার চেষ্টা করুন।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">অ্যাপ ইনস্টলের পর লোকেশন পারমিশন কেন চায়? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">নামাজের সঠিক সময় ও কিবলা দিক নির্ধারণের জন্য লোকেশন প্রয়োজন। এটি শুধুমাত্র সেই উদ্দেশ্যে ব্যবহার হয়।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">অ্যাপ আপডেট কিভাবে করব? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">Play Store → My apps & games থেকে আপডেট করুন। অটো-আপডেট চালু রাখলে স্বয়ংক্রিয় আপডেট হবে।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">পুরনো ভার্সন থেকে ডেটা কি থাকবে? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">সাধারণত বুকমার্ক, নোট ও ট্র্যাকার ডেটা থেকে যায়। তবে বড় আপডেটে মাঝে মাঝে রিসেট হতে পারে।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">অ্যাপ আনইনস্টল করলে কী হয়? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">অ্যাপ মুছে গেলে লোকাল ডেটা (বুকমার্ক, নোট, ট্র্যাকার) হারিয়ে যেতে পারে। গুরুত্বপূর্ণ প্রয়োজনীয় অন্য কোথাও নোট আগে সেভ করে রাখুন।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">ট্যাবলেট বা অন্য ডিভাইসে চলবে কি? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। অ্যান্ড্রয়েড ট্যাবলেটসহ বেশিরভাগ অ্যান্ড্রয়েড ডিভাইসে চলে।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">সর্বনিম্ন অ্যান্ড্রয়েড ভার্সন কত প্রয়োজন? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">সাধারণত Android ১০.0 (Marshmallow) বা তার উপরের ভার্সন সাপোর্ট করে।</div></div>
+    </div>
+</div>
+
+<!-- ৩. নামাজ ও আযান (21-32) -->
+<div class="faq-category"><i class="fas fa-mosque"></i> নামাজ ও আযান</div>
+<div class="faq-list">
+    <div class="faq-item">
+        <button class="faq-question">নামাজের সময় কি সঠিক দেখায়? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। লোকেশন ভিত্তিক সঠিক সময়সূচি দেয়। বিভিন্ন গণনা পদ্ধতি বেছে নেওয়া যায়।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">আযান অ্যালার্ট কিভাবে চালু করব? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">সেটিংস → নোটিফিকেশন/আযান অ্যালার্ট থেকে প্রতি ওয়াক্ত আলাদা করে চালু করতে পারবেন।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">আযানের সাউন্ড পরিবর্তন করা যায় কি? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। একাধিক আযানের সাউন্ড থেকে পছন্দমতো বেছে নিতে পারবেন।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">নামাজ ট্র্যাকার কীভাবে কাজ করে? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">প্রতিদিনের পাঁচ ওয়াক্ত নামাজের পাশে টিক দিয়ে হিসাব রাখতে পারবেন এবং পরিসংখ্যান দেখতে পারবেন।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">নামাজের নিয়মাবলী কি আছে? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। ফরজ, সুন্নাত, বিতর, তারাবিহসহ ধাপে ধাপে নিয়মাবলী ও দোয়া দেওয়া আছে।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">ওযু ও গোসলের নিয়ম আছে কি? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। সঠিক ওযু ও ফরজ গোসলের পদ্ধতি বিস্তারিতভাবে দেওয়া আছে।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">জানাজার নামাজের নিয়ম আছে কি? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। জানাজা নামাজের নিয়ম, তাকবীর ও দোয়া দেওয়া আছে।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">কসর নামাজের নিয়ম আছে কি? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। সফরকালীন কসর নামাজের শর্ত ও নিয়মাবলী সংক্ষেপে দেওয়া আছে।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">তাহাজ্জুদের সময় কি দেখায়? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। কিছু ভার্সনে তাহাজ্জুদের আনুমানিক সময় ও রিমাইন্ডার দেওয়া থাকে।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">নামাজের সময় ম্যানুয়ালি পরিবর্তন করা যায়? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">কিছু ক্ষেত্রে অ্যাডজাস্টমেন্ট অপশন থাকে। সেটিংস থেকে গণনা পদ্ধতি পরিবর্তন করা যায়।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">আযান মিস হলে কী করব? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">ফোনের ব্যাটারি অপটিমাইজেশন ও নোটিফিকেশন পারমিশন চেক করুন। অ্যাপকে ব্যাটারি সেভিং থেকে বাদ দিন।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">মসজিদের আযানের সাথে মিলবে কি? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">লোকেশন ও গণনা পদ্ধতির উপর নির্ভর করে সামান্য পার্থক্য হতে পারে। স্থানীয় মসজিদের সাথে মিলিয়ে অ্যাডজাস্ট করতে পারেন।</div></div>
+    </div>
+</div>
+
+<!-- ৪. কিবলা কম্পাস (33-38) -->
+<div class="faq-category"><i class="fas fa-compass"></i> কিবলা কম্পাস</div>
+<div class="faq-list">
+    <div class="faq-item">
+        <button class="faq-question">কিবলা কম্পাস কিভাবে ব্যবহার করব? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">কম্পাস সেকশনে গিয়ে ফোন সমতল রাখুন। দিক অনুসরণ করে কিবলা নির্ধারণ করুন।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">কিবলা সঠিক দেখাচ্ছে না কেন? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">GPS চালু রাখুন, ফোন ক্যালিব্রেট করুন এবং ধাতব বস্তু/ম্যাগনেট থেকে দূরে রাখুন।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">কম্পাস ক্যালিব্রেট কিভাবে করব? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">ফোনটিকে আটকে আটকে ঘুরিয়ে (ফিগার-৮ মোশন) ক্যালিব্রেট করুন।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">ইনডোরে কিবলা কি কাজ করে? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">কাজ করতে পারে, তবে ওপেন জায়গায় বা জানালার কাছে বেশি নির্ভুল হয়।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">কিবলা দিক ম্যাপে দেখায় কি? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। অনেক সময় ম্যাপ ভিউতেও কিবলার দিক দেখানো হয়।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">লোকেশন ছাড়া কিবলা কাজ করবে কি? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">সঠিক কিবলার জন্য লোকেশন প্রয়োজন। লোকেশন বন্ধ থাকলে নির্ভুলতা কমে যায়।</div></div>
+    </div>
+</div>
+
+<!-- ৫. কুরআন মাজিদ (39-50) -->
+<div class="faq-category"><i class="fas fa-book-quran"></i> কুরআন মাজিদ</div>
+<div class="faq-list">
+    <div class="faq-item">
+        <button class="faq-question">কুরআন কি অফলাইনে পড়া যায়? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। সম্পূর্ণ কুরআন অফলাইনে পড়া যায়।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">তাফসীর আছে কি? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। সহজ বাংলা তাফসীর দেওয়া আছে যাতে আয়াতের অর্থ সহজে বোঝা যায়।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question"> তিলাওয়াত আছে? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content"> অডিও তিলাওয়াত সাপোর্ট থাকতে পারে।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">অডিও তিলাওয়াত ডাউনলোড করা যায়? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। প্রয়োজনীয় সূরা বা পারা ডাউনলোড করে অফলাইনে শোনা যায়।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">কুরআনে সার্চ করা যায় কি? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। শব্দ, আয়াত নম্বর বা সূরা নাম দিয়ে সার্চ করা যায়।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">আয়াত বুকমার্ক করা যায়? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। প্রিয় আয়াত বুকমার্ক ও নোট করে রাখা যায়।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question"> ট্র্যাকার কী? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">অগ্রগতি ট্র্যাক করার টুল। কোন আয়াত/সূরা মুখস্থ করেছেন তা চিহ্নিত করা যায়। তবে এই ডেটা আমরা সংগ্রহ বা দেখতে পারি না। তা শুধু মাত্র আপনার ডিভাইস এর মধ্যে সীমাবদ্ধ থাকে</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">ফন্ট সাইজ পরিবর্তন করা যায়? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। আরবি ও বাংলা ইংরেজি টেক্সটের ফন্ট সাইজ অ্যাডজাস্ট করা যায়।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">রাতের মোডে কুরআন পড়া যায়? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। ডার্ক মোড চালু করে রাতে আরামে পড়া যায়।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">সূরা তালিকা কিভাবে দেখব? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">কুরআন সেকশনে সূরা তালিকা থেকে যেকোনো সূরা সিলেক্ট করে পড়া যায়।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">পারা অনুযায়ী পড়া যায় কি? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। ৩০ পারা অনুযায়ী নেভিগেশন সাপোর্ট করে।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">আয়াত শেয়ার করা যায়? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। আয়াত টেক্সট  আকারে শেয়ার করা যেতে পারে।</div></div>
+    </div>
+</div>
+
+<!-- ৬. হাদিস (51-56) -->
+<div class="faq-category"><i class="fas fa-book"></i> হাদিস</div>
+<div class="faq-list">
+    <div class="faq-item">
+        <button class="faq-question">হাদিসগুলো কোন সূত্রের? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">সহীহ বুখারী, সহীহ মুসলিমসহ প্রধান গ্রন্থ থেকে নির্বাচিত সহীহ হাদিস রাখা হয়েছে।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">হাদিস সার্চ করা যায় কি? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। বিষয় বা শব্দ দিয়ে সার্চ করা যায়।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">হাদিস বুকমার্ক করা যায়? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। প্রিয় হাদিস সেভ করে রাখা যায়।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">হাদিসের  অনুবাদ আছে কি? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। প্রতিটি হাদিসের সাথে বাংলা অনুবাদ দেওয়া আছে।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">কতগুলো হাদিস আছে? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">নির্বাচিত গুরুত্বপূর্ণ হাদিসের সংগ্রহ আছে। সময়ের সাথে আরও যোগ করা হবে।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">হাদিস ক্যাটাগরি অনুযায়ী সাজানো আছে? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। ঈমান, নামাজ, আখলাক, দোয়া ইত্যাদি বিষয়ভিত্তিক ক্যাটাগরি আছে।</div></div>
+    </div>
+</div>
+
+<!-- ৭. দোয়া, তাসবীহ ও যিকির (57-66) -->
+<div class="faq-category"><i class="fas fa-hands-praying"></i> দোয়া, তাসবীহ ও যিকির</div>
+<div class="faq-list">
+    <div class="faq-item">
+        <button class="faq-question">তাসবীহ কাউন্টার কিভাবে ব্যবহার করব? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">স্ক্রিনে ট্যাপ করে কাউন্টার বাড়ান। টার্গেট সেট ও রিসেট করা যায়। ভাইব্রেশন চালু রাখতে পারেন।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">সকাল-সন্ধ্যার যিকির আছে কি? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। সকাল ও সন্ধ্যার মাসনূন যিকির অর্থসহ দেওয়া আছে।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">দোয়া ক্যাটাগরি অনুযায়ী আছে? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। ঘুম, খাবার, সফর, বিপদ, ক্ষমা ইত্যাদি ক্যাটাগরিতে সাজানো।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">দোয়ার অডিও আছে কি? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। অনেক দোয়ার সঠিক উচ্চারণের অডিও শোনা যায়।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">আল্লাহর ৯৯ নাম আছে কি? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। আসমাউল হুসনা অর্থ ও সংক্ষিপ্ত ব্যাখ্যাসহ দেওয়া আছে।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question"> কালেমা আছে কি? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। কালেমা অর্থ ও উচ্চারণসহ দেওয়া আছে।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">তাসবীহতে টার্গেট সেট করা যায়? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। ৩৩, ১০০, ১০০০ বা কাস্টম টার্গেট সেট করা যায়।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">যিকিরের রিমাইন্ডার দেওয়া যায় কি? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">কিছু ভার্সনে সকাল-সন্ধ্যার যিকিরের রিমাইন্ডার সেট করা যায়।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">দোয়া শেয়ার করা যায়? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। দোয়া টেক্সট আকারে সহজে শেয়ার করা যায়।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">তাসবীহ হিস্টোরি সেভ হয় কি? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">কিছু ভার্সনে দৈনিক/সাপ্তাহিক যিকিরের হিসাব রাখা যায়।</div></div>
+    </div>
+</div>
+
+<!-- ৮. যাকাত, হজ্জ, রমজান (67-78) -->
+<div class="faq-category"><i class="fas fa-kaaba"></i> যাকাত, হজ্জ ও রমজান</div>
+<div class="faq-list">
+    <div class="faq-item">
+        <button class="faq-question">যাকাত ক্যালকুলেটর কিভাবে ব্যবহার করব? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">স্বর্ণ, রূপা, নগদ, ব্যবসায়িক সম্পদ লিখুন। অ্যাপ নিসাব হিসাব করে যাকাতের পরিমাণ দেখাবে।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">যাকাতের হিসাব? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content"> অ্যাপ স্বয়ংক্রিয় হিসাব করে।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">হজ্জ সম্পর্কে বিস্তারিত আছে? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">ইহরাম থেকে শুরু করে তাওয়াফ, সাঈ, অারাকাত, মুজদালিফা পর্যন্ত ধাপে ধাপে গাইড আছে।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">উমরাহ গাইড আছে কি? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। উমরাহর সম্পূর্ণ নিয়মকানুন ও দোয়া দেওয়া আছে।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">সেহরি-ইফতার সময় কিভাবে পাব? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">রমজান ক্যালেন্ডারে লোকেশন অনুযায়ী পুরো মাসের সেহরি-ইফতার সময়সূচি পাবেন।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">রোজার নিয়ম আছে কি? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। সিয়ামের নিয়ম, যাদের উপর ফরজ, কাজা-কাফফারা ইত্যাদি সংক্ষেপে দেওয়া আছে।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">কুরবানির নিয়ম আছে কি? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। কুরবানির শর্ত, প্রাণীর বয়স, মাংস বণ্টনসহ মাসআলা দেওয়া আছে।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">যাকাত কাকে দেওয়া যায়? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">অ্যাপে যাকাতের খাত সম্পর্কে সংক্ষিপ্ত তথ্য দেওয়া আছে।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">রমজানে তারাবির সময় দেখায় কি? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">এশা ও তারাবির সময়সূচি রমজান ক্যালেন্ডারে পাওয়া যেতে পারে।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question"> ক্যালেন্ডার আছে কি? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ।  ক্যালেন্ডার ও গুরুত্বপূর্ণ ইসলামী দিবস দেওয়া আছে।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">ঈদের তারিখ কি দেখায়? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। ঈদুল ফিতর, ঈদুল আজহাসহ গুরুত্বপূর্ণ দিবসের তারিখ দেখায়।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question"> ট্র্যাকার আছে কি? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। আপনার হিসাব রাখার অপশন আছে।</div></div>
+    </div>
+</div>
+
+<!-- ৯. অন্যান্য ফিচার (79-88) -->
+<div class="faq-category"><i class="fas fa-th-large"></i> অন্যান্য ফিচার</div>
+<div class="faq-list">
+    <div class="faq-item">
+        <button class="faq-question">নিকটবর্তী মসজিদ খোঁজা যায় কি? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। লোকেশন দিলে আশেপাশের মসজিদ ম্যাপে দেখায়।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">ইসলামিক নাম ও অর্থ আছে কি? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। ছেলে-মেয়েদের সুন্দর ইসলামিক নাম ও অর্থ দেওয়া আছে।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">নবী ও সাহাবীদের জীবনী আছে কি? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। নবীদের ও প্রসিদ্ধ সাহাবীদের সংক্ষিপ্ত জীবনী দেওয়া আছে।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">ইসলামিক কুইজ আছে কি? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। ইসলামিক জ্ঞান বাড়ানোর জন্য কুইজ সেকশন আছে।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">আরবি শেখার অপশন আছে কি? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। আরবি বর্ণমালা ও মৌলিক শব্দ শেখার সেকশন আছে।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">ইসলামিক গল্প আছে কি? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। নবী ও সাহাবীদের শিক্ষণীয় গল্প দেওয়া আছে।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">বায়ান/লেকচার শোনা যায় কি? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">নির্বাচিত বায়ান ও লেকচার শোনার অপশন থাকতে পারে (ইন্টারনেট প্রয়োজন)।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question"> ব্যাখ্যা আছে কি? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">ইসলামিক দৃষ্টিকোণ থেকে কিছু সাধারণ  ব্যাখ্যা দেওয়া থাকতে পারে।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">বিবাহের ইসলামিক নিয়ম আছে কি? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content"> বিবাহের আদব, শর্ত ও সংক্ষিপ্ত মাসআলা দেওয়া থাকতে পারে।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">কবর জিয়ারতের দোয়া আছে কি? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। কবর জিয়ারতের আদব ও দোয়া দেওয়া আছে।</div></div>
+    </div>
+</div>
+
+<!-- ১০. সেটিংস, প্রাইভেসি ও টেকনিক্যাল (89-100) -->
+<div class="faq-category"><i class="fas fa-cog"></i> সেটিংস, প্রাইভেসি ও টেকনিক্যাল</div>
+<div class="faq-list">
+    <div class="faq-item">
+        <button class="faq-question">ডার্ক মোড কিভাবে চালু করব? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">সেটিংস থেকে ডার্ক মোড অপশন চালু করুন।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">নোটিফিকেশন বন্ধ করতে চাইলে কী করব? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">অ্যাপ সেটিংস বা ফোনের সিস্টেম সেটিংস থেকে নোটিফিকেশন নিয়ন্ত্রণ করুন।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">আমার ডেটা কি নিরাপদ? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। ব্যক্তিগত তথ্য সংগ্রহ বা বিক্রি করা হয় না। লোকেশন শুধু নামাজ/কিবলার জন্য ব্যবহৃত হয়।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">অ্যাপে বাগ পেলে কোথায় জানাব? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">অ্যাপের ফিডব্যাক অপশন বা ইমেইলের মাধ্যমে জানাতে পারেন। বিস্তারিত বুঝিয়ে বলুন বা স্কিনশট দিলে ভালো হয়।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">কোনো ফিচার কাজ না করলে কী করব? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">অ্যাপ রিস্টার্ট করুন, আপডেট করুন বা ক্যাশ ক্লিয়ার করুন। সমস্যা না সরলে সাপোর্টে যোগাযোগ করুন।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">ব্যাটারি বেশি খরচ করে কি? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">সাধারণত না। তবে আযান অ্যালার্ট ও লোকেশন চালু থাকলে সামান্য ব্যাটারি ব্যবহার হতে পারে।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">ডেটা ব্যাকআপ করা যায় কি? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">বর্তমানে লোকাল ডেটা ডিভাইসে থাকে। ক্লাউড ব্যাকআপ ফিচার ভবিষ্যতে আসতে পারে।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">অ্যাপ ক্র্যাশ করলে কী করব? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">ফোর্স স্টপ করে আবার চালু করুন। প্রয়োজনে রিইনস্টল করুন এবং সাপোর্টে জানান।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">প্রাইভেসি পলিসি কোথায় পাব? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">অ্যাপ সেটিংস বা ওয়েবসাইটে নিচে প্রাইভেসি পলিসি লিংক দেওয়া আছে।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">সাপোর্ট টিমের সাথে কিভাবে যোগাযোগ করব? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">অ্যাপের ফিডব্যাক অপশন বা ইমেইল  এর মাধ্যমে যোগাযোগ করতে পারেন।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">ফিচার রিকোয়েস্ট করা যায় কি? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">হ্যাঁ। নতুন ফিচারের সাজেশন ফিডব্যাক বা ইমেইলের মাধ্যমে পাঠাতে পারেন।</div></div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">অ্যাপ রেটিং দিলে কী হয়? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-content">আপনার রেটিং ও রিভিউ অন্য ব্যবহারকারী এবং আমাদের আরো উন্নত মানের করতে সাহায্য করে এবং আমাদের উন্নতিতে অনুপ্রেরণা জোগায়। ধন্যবাদ!</div></div>
+    </div>
+</div>
+
+<!-- Contact -->
+<div class="contact-box">
+    <h3>আরও প্রশ্ন আছে?</h3>
+    <p>আপনার প্রশ্নের উত্তর এখানে না পেলে আমাদের সাথে যোগাযোগ করুন।</p>
+    <a href="mailto:contact.mrisllc@gmail.com" class="btn">
+        <i class="fas fa-envelope"></i> আমাদের লিখুন
+    </a>
+</div>
+
+</div>
+</section>
+
+<footer>
+    <div class="container">
+        <a href="index.html" class="logo">
+            <i class="fas fa-moon"></i>
+            <span>Hisn Lifestyle</span>
+        </a>
+        <p>আপনার সম্পূর্ণ ইসলামিক সঙ্গী — গুরুত্বপূর্ণ ফিচার সমৃদ্ধ অ্যাপস</p>
+        <div class="footer-links">
+            <a href="index.html">হোম</a>
+            <a href="index.html#phone-features">ফিচার</a>
+            <a href="faq.html">FAQ</a>
+            <a href="index.html#download">ডাউনলোড</a>
+        </div>
+        <div class="copyright">© ২০২৬ Hisn Lifestyle। By MRIS technologies Co limited সর্বস্বত্ব সংরক্ষিত।</div>
+    </div>
+</footer>
+
+<script>
+    document.querySelectorAll('.faq-question').forEach(button => {
+        button.addEventListener('click', () => {
+            const item = button.parentElement;
+            const isActive = item.classList.contains('active');
+            document.querySelectorAll('.faq-item').forEach(faq => faq.classList.remove('active'));
+            if (!isActive) item.classList.add('active');
+        });
+    });
+
+    window.addEventListener('scroll', () => {
+        const header = document.querySelector('header');
+        header.style.boxShadow = window.scrollY > 40 ? '0 5px 25px rgba(0,0,0,0.2)' : 'none';
+    });
+</script>
 
 </body>
 </html>
